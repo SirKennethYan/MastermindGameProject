@@ -51,25 +51,34 @@ public class MastermindGame {
             System.out
                     .println("Sorry, you've run out of attempts. The correct code was: " + Arrays.toString(secretCode));
         }
+        System.out.println("Game ended.");
     }
 
     public void getPlayerGuess() {
         try {
-            System.out.print("Enter your guess (4 numbers, space-separated): ");
+            System.out.print("Enter your guess (4 numbers between 1 and 8, space-separated): ");
             String input = scanner.nextLine();
             String[] inputArray = input.split(" ");
 
             if (inputArray.length != NUM_DIGITS) {
-                System.out.println("Invalid input. Please enter 4 numbers, space-separated. ");
+                System.out.println("Invalid input. Please enter 4 numbers between 1 and 8, space-separated. ");
                 getPlayerGuess();
                 return;
             }
 
             for (int i = 0; i < NUM_DIGITS; i++) {
-                playerGuess[i] = Integer.parseInt(inputArray[i]);
+                int number = Integer.parseInt(inputArray[i]);
+
+                if (number < MIN_VALUE || number > MAX_VALUE) {
+                    System.out.println("Invalid input. Please enter numbers between 1 and 8.");
+                    getPlayerGuess();
+                    return;
+                }
+
+                playerGuess[i] = number;
             }
         } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please enter 4 numbers, space-separated. ");
+            System.out.println("Invalid input. Please enter 4 numbers between 1 and 8, space-separated. ");
             e.printStackTrace();
         }
     }

@@ -73,30 +73,4 @@ public class MastermindGameTest {
 
     }
 
-    // @Test
-    // @Timeout(value = 20, unit = TimeUnit.SECONDS)
-    // public void testGameOutcome() {
-    // // Any Valid Guess Scenario #1
-    // game.secretCode = new int[] { 1, 2, 3, 4 };
-    // game.playerGuess = new int[] { 1, 2, 3, 5 };
-    // int initialAttemptsValidGuess = game.attemptsLeft;
-    // // Expect the attemptsLeft to decrease by 1
-    // game.playGame();
-    // assertEquals(initialAttemptsValidGuess - 1, game.attemptsLeft);
-
-    // // Any Valid Guess Scenario #2
-    // game.secretCode = new int[] { 1, 2, 3, 4 };
-    // game.playerGuess = new int[] { 1, 2, 4, 3 };
-    // int initialAttemptsZeroGuess = game.attemptsLeft;
-    // // Play the game until attemptsLeft is 0
-    // for (int i = 0; i < initialAttemptsZeroGuess; i++) {
-    // game.playGame();
-    // }
-    // // After 10 rounds, expect the attemptsLeft to be 0
-    // assertEquals(0, game.attemptsLeft);
-    // // Try playing the game again, attemptsLeft should still be 0
-    // game.playGame();
-    // assertEquals(0, game.attemptsLeft);
-    // }
-
 }
