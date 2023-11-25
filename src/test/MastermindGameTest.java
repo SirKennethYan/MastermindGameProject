@@ -2,6 +2,8 @@ package test;
 
 import org.junit.jupiter.api.BeforeEach;
 import main.java.app.MastermindGame;
+import main.java.entities.CodeGenerator;
+import main.java.entities.Feedback;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MastermindGameTest {
     private MastermindGame game;
+    private CodeGenerator codeGenerator;
 
     public static void main(String[] args) {
         MastermindGameTest test = new MastermindGameTest();
@@ -21,11 +24,13 @@ public class MastermindGameTest {
     @BeforeEach
     void setUp() {
         game = new MastermindGame();
+        codeGenerator = new CodeGenerator();
+        new Feedback();
     }
 
     @Test
     public void testGeneratedSecretCode() {
-        int[] secretCode = game.generateSecretCode();
+        int[] secretCode = codeGenerator.generateSecretCode();
         assertEquals(MastermindGame.NUM_DIGITS, secretCode.length);
 
         for (int value : secretCode) {
@@ -35,42 +40,41 @@ public class MastermindGameTest {
 
     @Test
     public void testPlayerGuessFeedback() {
-        // All Correct Valules
+        // All Correct Values
         game.secretCode = new int[] { 1, 2, 3, 4 };
         game.playerGuess = new int[] { 1, 2, 3, 4 };
-        int[] feedback = game.getFeedback();
-        assertArrayEquals(new int[] { 0, 4 }, feedback);
+        int[] feedbackResult = Feedback.getFeedback(game.secretCode, game.playerGuess);
+        assertArrayEquals(new int[] { 0, 4 }, feedbackResult);
 
-        // 1 Correct Valules, Correct Space
+        // 1 Correct Value, Correct Space
         game.secretCode = new int[] { 1, 2, 3, 4 };
         game.playerGuess = new int[] { 1, 5, 6, 7 };
-        feedback = game.getFeedback();
-        assertArrayEquals(new int[] { 0, 1 }, feedback);
+        feedbackResult = Feedback.getFeedback(game.secretCode, game.playerGuess);
+        assertArrayEquals(new int[] { 0, 1 }, feedbackResult);
 
-        // 2 Correct Valules, Correct Space
+        // 2 Correct Values, Correct Space
         game.secretCode = new int[] { 1, 2, 3, 4 };
         game.playerGuess = new int[] { 1, 2, 5, 6 };
-        feedback = game.getFeedback();
-        assertArrayEquals(new int[] { 0, 2 }, feedback);
+        feedbackResult = Feedback.getFeedback(game.secretCode, game.playerGuess);
+        assertArrayEquals(new int[] { 0, 2 }, feedbackResult);
 
-        // 3 Correct Valules, Correct Space
+        // 3 Correct Values, Correct Space
         game.secretCode = new int[] { 1, 2, 3, 4 };
         game.playerGuess = new int[] { 1, 2, 3, 5 };
-        feedback = game.getFeedback();
-        assertArrayEquals(new int[] { 0, 3 }, feedback);
+        feedbackResult = Feedback.getFeedback(game.secretCode, game.playerGuess);
+        assertArrayEquals(new int[] { 0, 3 }, feedbackResult);
 
-        // 4 Correct Valules, Wrong Space
+        // 4 Correct Values, Wrong Space
         game.secretCode = new int[] { 1, 2, 3, 4 };
         game.playerGuess = new int[] { 4, 3, 2, 1 };
-        feedback = game.getFeedback();
-        assertArrayEquals(new int[] { 4, 0 }, feedback);
+        feedbackResult = Feedback.getFeedback(game.secretCode, game.playerGuess);
+        assertArrayEquals(new int[] { 4, 0 }, feedbackResult);
 
-        // No Correct Valules
+        // No Correct Values
         game.secretCode = new int[] { 1, 2, 3, 4 };
         game.playerGuess = new int[] { 5, 6, 7, 8 };
-        feedback = game.getFeedback();
-        assertArrayEquals(new int[] { 0, 0 }, feedback);
-
+        feedbackResult = Feedback.getFeedback(game.secretCode, game.playerGuess);
+        assertArrayEquals(new int[] { 0, 0 }, feedbackResult);
     }
 
 }
