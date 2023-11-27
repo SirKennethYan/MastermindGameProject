@@ -5,6 +5,7 @@ import java.util.Scanner;
 import main.java.entities.CodeGenerator;
 import main.java.entities.Feedback;
 import main.java.entities.Player;
+import main.java.ui.MenuHandler;
 
 public class MastermindGame {
     private static final Scanner scanner = new Scanner(System.in);
@@ -26,12 +27,12 @@ public class MastermindGame {
 
     public static void main(String[] args) {
         MastermindGame game = new MastermindGame();
-        game.playGame();
+        System.out.println("Welcome to Mastermind!");
+        MenuHandler.printMenu(game);
         scanner.close();
     }
 
     public void playGame() {
-        System.out.println("Welcome to Mastermind!");
 
         while (attemptsLeft > 0) {
             System.out.println("Attempts left: " + attemptsLeft);
