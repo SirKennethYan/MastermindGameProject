@@ -43,10 +43,10 @@ public class Feedback {
         int correctPosition = feedback[1];
 
         StringBuilder feedbackString = new StringBuilder("Secret Code: ");
+
         for (int i = 0; i < correctPosition; i++) {
             feedbackString.append("■ "); // Solid square for correct position
         }
-
         for (int i = 0; i < correctNumber; i++) {
             feedbackString.append("_ "); // Underscore for correct number (wrong position)
         }
@@ -56,7 +56,7 @@ public class Feedback {
             feedbackString.append("X "); // 'X' for incorrect numbers
         }
 
-        System.out.println(feedbackString.toString() + "\n----------------------------");
+        System.out.println(feedbackString.toString() + "\n\n----------------------------");
     }
 
 }

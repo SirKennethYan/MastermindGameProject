@@ -10,7 +10,9 @@ public class MenuHandler {
 
     public static void printMenu(MastermindGame game) {
 
-        while (true) {
+        boolean gameEnded = false;
+
+        while (!gameEnded) {
             System.out.println("1. Start Game");
             System.out.println("2. View Instructions");
             System.out.println("3. Select Difficulty");
@@ -52,9 +54,8 @@ public class MenuHandler {
                     }
                     break;
             }
-            if (game.isGameEnded()) {
-                break;
-            }
+
+            gameEnded = game.isGameEnded();
         }
     }
 

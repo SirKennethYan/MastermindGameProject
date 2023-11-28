@@ -27,18 +27,20 @@ public class MastermindGame {
         MastermindGame game = new MastermindGame();
         System.out.println("Welcome to Mastermind!");
 
-        // Use a do-while loop to keep playing until the user chooses to exit
         do {
             MenuHandler.printMenu(game);
             game.playGame();
 
-            // Check if the game has ended
-            if (!game.isGameEnded()) {
-                System.out.println("Game ended.\n");
+            if (!game.askToPlayAgain()) {
+                System.out.println("Exiting the game. Goodbye!");
+                break;
             }
-        } while (!game.isGameEnded());
 
-        // Close the scanner after the loop
+            System.out.println("\nNew Game!\n");
+            game.resetGame();
+
+        } while (true);
+
         scanner.close();
     }
 
@@ -87,13 +89,18 @@ public class MastermindGame {
 
     public void playGame() {
         resetGame(); // Reset the game when the difficulty changes
+        boolean firstAttempt = true; // flag set to true for the first game
 
         while (attemptsLeft > 0) {
+            if (firstAttempt) {
+                System.out.println("Starting Game...Guess the Secret Code!");
+                firstAttempt = false; // Set the flag to false after the first attempt
+            }
+
             System.out.println("Attempts left: " + attemptsLeft);
             playerGuess = Player.getPlayerGuess(NUM_DIGITS, MIN_VALUE, MAX_VALUE);
-
             // Print statements for demo purposes
-            System.out.println("Player guess: " + Arrays.toString(playerGuess));
+            // System.out.println("Player guess: " + Arrays.toString(playerGuess));
             System.out.println("Secret code: " + Arrays.toString(secretCode));
 
             if (playerGuess == null) {
@@ -107,7 +114,9 @@ public class MastermindGame {
 
             if (feedbackResult[1] == NUM_DIGITS) {
                 System.out.println("Congratulations! You guessed the correct code!");
+
                 if (askToPlayAgain()) {
+                    firstAttempt = true; // flag set to true for the next game
                     break; // Exit the loop if the user wants to play again
                 } else {
                     return; // Return from the method if the user chooses not to play again
@@ -120,6 +129,8 @@ public class MastermindGame {
         if (attemptsLeft == 0 && !isGameEnded()) {
             System.out
                     .println("Sorry, you've run out of attempts. The correct code was: " + Arrays.toString(secretCode));
+            System.out.println("New Game? ");
+            System.out.println();
         }
     }
 
@@ -128,24 +139,26 @@ public class MastermindGame {
         System.out.println("1. Yes");
         System.out.println("2. No");
 
-        int choice;
+        int choice = 0;
 
         try {
             choice = Integer.parseInt(scanner.nextLine());
+            if (choice < 1 || choice > 2) {
+                System.out.println("Invalid choice. Please enter 1 for 'yes' or 2 for 'no'.");
+                return askToPlayAgain();
+            }
         } catch (NumberFormatException e) {
             System.out.println("Invalid input. Please enter a number.");
             return askToPlayAgain();
         }
 
-        switch (choice) {
-            case 1:
-                return true;
-            case 2:
-                System.out.println("Exiting the game. Goodbye!");
-                return false;
-            default:
-                System.out.println("Invalid choice. Please enter 1 for 'yes' or 2 for 'no'.");
-                return askToPlayAgain();
+        if (choice == 1) {
+            playGame();
+            return true;
+        } else {
+            System.out.println("Exiting the game. Goodbye!");
+            System.exit(0); // Exit the program if the user chooses not to play again
+            return false; // This line is not strictly necessary but included for clarity
         }
     }
 
