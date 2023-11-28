@@ -18,7 +18,10 @@ public class MastermindGameTest {
         test.setUp();
         test.testGeneratedSecretCode();
         test.testPlayerGuessFeedback();
-        // test.testGameOutcome();
+        // TODO test.testGameOutcome();
+        // TODO test.resetGame();
+        // TODO test.setDifficulty();
+        // TODO test.playGame();
     }
 
     @BeforeEach

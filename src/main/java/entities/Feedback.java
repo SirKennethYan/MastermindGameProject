@@ -42,20 +42,21 @@ public class Feedback {
         int correctNumber = feedback[0];
         int correctPosition = feedback[1];
 
+        StringBuilder feedbackString = new StringBuilder("Secret Code: ");
         for (int i = 0; i < correctPosition; i++) {
-            System.out.print("■ "); // Solid square for correct position
+            feedbackString.append("■ "); // Solid square for correct position
         }
 
         for (int i = 0; i < correctNumber; i++) {
-            System.out.print("_ "); // Underscore for correct number (wrong position)
+            feedbackString.append("_ "); // Underscore for correct number (wrong position)
         }
 
         int incorrectNumber = MastermindGame.NUM_DIGITS - correctNumber - correctPosition;
         for (int i = 0; i < incorrectNumber; i++) {
-            System.out.print("X "); // 'X' for incorrect numbers
+            feedbackString.append("X "); // 'X' for incorrect numbers
         }
 
-        System.out.println("\n----------------------------");
+        System.out.println(feedbackString.toString() + "\n----------------------------");
     }
 
 }
