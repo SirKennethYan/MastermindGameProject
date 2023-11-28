@@ -39,7 +39,23 @@ public class Feedback {
     }
 
     public static void displayFeedback(int[] feedback) {
-        System.out.println("Feedback: " + feedback[0] + " correct number(s), " + feedback[1] + " correct position(s)");
-        System.out.println("----------------------------");
+        int correctNumber = feedback[0];
+        int correctPosition = feedback[1];
+
+        for (int i = 0; i < correctPosition; i++) {
+            System.out.print("■ "); // Solid square for correct position
+        }
+
+        for (int i = 0; i < correctNumber; i++) {
+            System.out.print("_ "); // Underscore for correct number (wrong position)
+        }
+
+        int incorrectNumber = MastermindGame.NUM_DIGITS - correctNumber - correctPosition;
+        for (int i = 0; i < incorrectNumber; i++) {
+            System.out.print("X "); // 'X' for incorrect numbers
+        }
+
+        System.out.println("\n----------------------------");
     }
+
 }

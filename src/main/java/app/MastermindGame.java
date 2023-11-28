@@ -13,6 +13,7 @@ public class MastermindGame {
     public static final int NUM_DIGITS = 4;
     public static final int MIN_VALUE = 1;
     public static final int MAX_VALUE = 8;
+
     private CodeGenerator codeGenerator;
     public int[] secretCode;
     public int[] playerGuess;
@@ -33,10 +34,20 @@ public class MastermindGame {
     }
 
     public void playGame() {
-
         while (attemptsLeft > 0) {
             System.out.println("Attempts left: " + attemptsLeft);
             playerGuess = Player.getPlayerGuess(NUM_DIGITS, MIN_VALUE, MAX_VALUE);
+
+            // Print statements for demo purposes
+            System.out.println("Player guess: " + Arrays.toString(playerGuess));
+            System.out.println("Secret code: " + Arrays.toString(secretCode));
+
+            if (playerGuess == null) {
+                System.out.println("Invalid input. Please enter " + NUM_DIGITS + " numbers between "
+                        + MIN_VALUE + " and " + MAX_VALUE + ".");
+                continue; // Restart the loop to get a valid input
+            }
+
             int[] feedbackResult = Feedback.getFeedback(secretCode, playerGuess);
             Feedback.displayFeedback(feedbackResult);
 
@@ -53,6 +64,7 @@ public class MastermindGame {
                     .println("Sorry, you've run out of attempts. The correct code was: " + Arrays.toString(secretCode));
         }
         System.out.println("Game ended.");
+        scanner.close();
     }
 
     public boolean containsNumber(int number, int[] array) {
