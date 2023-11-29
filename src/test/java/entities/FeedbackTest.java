@@ -1,44 +1,17 @@
-package test;
+package test.java.entities;
 
-import org.junit.jupiter.api.BeforeEach;
 import main.java.app.MastermindGame;
-import main.java.entities.CodeGenerator;
 import main.java.entities.Feedback;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
 
-public class MastermindGameTest {
+public class FeedbackTest {
     private MastermindGame game;
-    private CodeGenerator codeGenerator;
-
-    public static void main(String[] args) {
-        MastermindGameTest test = new MastermindGameTest();
-        test.setUp();
-        test.testGeneratedSecretCode();
-        test.testPlayerGuessFeedback();
-        // TODO test.testGameOutcome();
-        // TODO test.resetGame();
-        // TODO test.setDifficulty();
-        // TODO test.playGame();
-    }
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         game = new MastermindGame();
-        codeGenerator = new CodeGenerator();
-        new Feedback();
-    }
-
-    @Test
-    public void testGeneratedSecretCode() {
-        int[] secretCode = codeGenerator.generateSecretCode();
-        assertEquals(MastermindGame.NUM_DIGITS, secretCode.length);
-
-        for (int value : secretCode) {
-            assertTrue(value >= MastermindGame.MIN_VALUE && value <= MastermindGame.MAX_VALUE);
-        }
     }
 
     @Test
@@ -79,5 +52,4 @@ public class MastermindGameTest {
         feedbackResult = Feedback.getFeedback(game.secretCode, game.playerGuess);
         assertArrayEquals(new int[] { 0, 0 }, feedbackResult);
     }
-
 }
