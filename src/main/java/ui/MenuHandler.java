@@ -22,10 +22,6 @@ public class MenuHandler {
             System.out.println();
 
             switch (menuChoice) {
-                case "0":
-                    System.out.println("Exiting the game. Goodbye!");
-                    System.exit(0);
-                    break;
                 case "1":
                     game.resetGame();
                     game.playGame();
@@ -44,13 +40,13 @@ public class MenuHandler {
                 default:
                     try {
                         int choice = Integer.parseInt(menuChoice);
-                        if (choice < 0 || choice > 4) {
-                            System.out.println("Invalid menu choice. Please enter a number between 0 and 4.");
+                        if (choice < 1 || choice > 4) {
+                            System.out.println("Invalid menu choice. Please enter a number between 1 and 4.");
                         } else {
                             System.out.println("Invalid menu choice. Please enter a valid number.");
                         }
                     } catch (NumberFormatException e) {
-                        System.out.println("Invalid input. Please enter a number (0 to 4). ");
+                        System.out.println("Invalid input. Please enter a number (1 to 4). ");
                     }
                     break;
             }
