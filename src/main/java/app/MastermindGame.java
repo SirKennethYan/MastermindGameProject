@@ -7,6 +7,7 @@ import main.java.entities.Feedback;
 import main.java.entities.Player;
 import main.java.ui.DifficultyLevel;
 import main.java.ui.MenuHandler;
+import main.java.entities.GameState;
 
 public class MastermindGame {
     private static final Scanner scanner = new Scanner(System.in);
@@ -17,6 +18,7 @@ public class MastermindGame {
     public static int MAX_VALUE = 8;
     private DifficultyLevel difficultyLevel;
     private boolean gameEnded = false;
+    private GameState gameState;
 
     private CodeGenerator codeGenerator;
     public int[] secretCode;
@@ -50,6 +52,7 @@ public class MastermindGame {
         playerGuess = new int[NUM_DIGITS];
         attemptsLeft = NUM_ATTEMPTS;
         difficultyLevel = DifficultyLevel.MEDIUM;
+        gameState = new GameState();
         resetGame();
     }
 

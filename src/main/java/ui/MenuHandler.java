@@ -1,22 +1,16 @@
 package main.java.ui;
 
 import java.util.Scanner;
-
 import main.java.app.MastermindGame;
-import main.java.instructions.GameInstructions;
 
 public class MenuHandler {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void printMenu(MastermindGame game) {
-
         boolean gameEnded = false;
 
         while (!gameEnded) {
-            System.out.println("1. Start Game");
-            System.out.println("2. View Instructions");
-            System.out.println("3. Select Difficulty");
-            System.out.println("4. Exit Game");
+            GameView.printMainMenu();
 
             String menuChoice = scanner.nextLine();
             System.out.println();
@@ -27,8 +21,7 @@ public class MenuHandler {
                     game.playGame();
                     break;
                 case "2":
-                    GameInstructions.printInstructions();
-                    waitForEnter();
+                    GameView.printInstructions(scanner);
                     break;
                 case "3":
                     selectDifficulty(game);
@@ -38,16 +31,7 @@ public class MenuHandler {
                     System.exit(0);
                     break;
                 default:
-                    try {
-                        int choice = Integer.parseInt(menuChoice);
-                        if (choice < 1 || choice > 4) {
-                            System.out.println("Invalid menu choice. Please enter a number between 1 and 4.");
-                        } else {
-                            System.out.println("Invalid menu choice. Please enter a valid number.");
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid input. Please enter a number (1 to 4). ");
-                    }
+                    handleInvalidChoice();
                     break;
             }
 
@@ -56,15 +40,11 @@ public class MenuHandler {
     }
 
     private static void selectDifficulty(MastermindGame game) {
-        System.out.println("Select Difficulty:");
-        System.out.println("1. Easy");
-        System.out.println("2. Medium");
-        System.out.println("3. Hard");
+        GameView.printDifficultyMenu();
 
         String difficultyChoice = scanner.nextLine();
 
         switch (difficultyChoice) {
-
             case "1":
                 game.setDifficulty(DifficultyLevel.EASY);
                 System.out.println("Difficulty set to Easy");
@@ -83,16 +63,7 @@ public class MenuHandler {
         }
     }
 
-    private static void waitForEnter() {
-        // Continue reading input until the ENTER key is pressed
-        while (true) {
-            String input = scanner.nextLine();
-            if (input.isEmpty()) {
-                break; // Break the loop if ENTER is pressed
-            } else {
-                System.out.println("Invalid key, press ENTER to return to menu");
-            }
-        }
+    private static void handleInvalidChoice() {
+        System.out.println("Invalid menu choice. Please enter a number between 1 and 4.");
     }
-
 }
