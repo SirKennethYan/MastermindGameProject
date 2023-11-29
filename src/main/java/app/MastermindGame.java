@@ -24,24 +24,24 @@ public class MastermindGame {
     public int attemptsLeft;
 
     public static void main(String[] args) {
-        MastermindGame game = new MastermindGame();
-        System.out.println("Welcome to Mastermind!");
+        try (Scanner scanner = new Scanner(System.in)) {
+            MastermindGame game = new MastermindGame();
+            System.out.println("Welcome to Mastermind!");
 
-        do {
-            MenuHandler.printMenu(game);
-            game.playGame();
+            do {
+                MenuHandler.printMenu(game);
+                game.playGame();
 
-            if (!game.askToPlayAgain()) {
-                System.out.println("Exiting the game. Goodbye!");
-                break;
-            }
+                if (!game.askToPlayAgain()) {
+                    System.out.println("Exiting the game. Goodbye!");
+                    break;
+                }
 
-            System.out.println("\nNew Game!\n");
-            game.resetGame();
+                System.out.println("\nNew Game!\n");
+                game.resetGame();
 
-        } while (true);
-
-        scanner.close();
+            } while (true);
+        }
     }
 
     public MastermindGame() {
@@ -139,18 +139,7 @@ public class MastermindGame {
         System.out.println("1. Yes");
         System.out.println("2. No");
 
-        int choice = 0;
-
-        try {
-            choice = Integer.parseInt(scanner.nextLine());
-            if (choice < 1 || choice > 2) {
-                System.out.println("Invalid choice. Please enter 1 for 'yes' or 2 for 'no'.");
-                return askToPlayAgain();
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please enter a number.");
-            return askToPlayAgain();
-        }
+        int choice = getUserChoice();
 
         if (choice == 1) {
             playGame();
@@ -160,6 +149,23 @@ public class MastermindGame {
             System.exit(0); // Exit the program if the user chooses not to play again
             return false; // This line is not strictly necessary but included for clarity
         }
+    }
+
+    private int getUserChoice() {
+        int choice = 0;
+
+        try {
+            choice = Integer.parseInt(scanner.nextLine());
+            if (choice < 1 || choice > 2) {
+                System.out.println("Invalid choice. Please enter 1 for 'yes' or 2 for 'no'.");
+                return getUserChoice(); // Recursively call the method for invalid choices
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            return getUserChoice(); // Recursively call the method for invalid input
+        }
+
+        return choice;
     }
 
     public boolean containsNumber(int number, int[] array) {
