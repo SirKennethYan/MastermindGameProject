@@ -1,19 +1,22 @@
 package main.java.app;
 
 import java.util.Arrays;
+import java.util.Scanner;
 import main.java.entities.Feedback;
 import main.java.entities.Player;
 
 public class GameController {
     private MastermindGame mastermindGame;
+    private Scanner scanner;
 
-    public GameController(MastermindGame mastermindGame) {
+    public GameController(MastermindGame mastermindGame, Scanner scanner) {
         this.mastermindGame = mastermindGame;
+        this.scanner = scanner;
     }
 
     public void playGame() {
         // Implement the logic to play the game using the MastermindGame object
-        mastermindGame.resetGame(); // Ensure the game is reset before starting
+        mastermindGame.resetGame(null); // Ensure the game is reset before starting
         boolean firstAttempt = true;
 
         while (mastermindGame.getAttemptsLeft() > 0) {
@@ -68,7 +71,7 @@ public class GameController {
         int choice = 0;
 
         try {
-            choice = Integer.parseInt(MastermindGame.scanner.nextLine());
+            choice = Integer.parseInt(scanner.nextLine());
             if (choice < 1 || choice > 2) {
                 System.out.println("Invalid choice. Please enter 1 for 'yes' or 2 for 'no'.");
                 return askToPlayAgain();

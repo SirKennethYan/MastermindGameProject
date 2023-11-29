@@ -8,9 +8,8 @@ import main.java.app.MastermindGame;
 public class MenuHandler {
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void printMenu(MastermindGame game) {
+    public static void printMenu(MastermindGame game, GameController gameController) {
         boolean gameEnded = false;
-        GameController gameController = new GameController(game);
 
         while (!gameEnded) {
             GameView.printMainMenu();
@@ -20,7 +19,7 @@ public class MenuHandler {
 
             switch (menuChoice) {
                 case "1":
-                    game.resetGame();
+                    game.resetGame(scanner);
                     gameController.playGame();
                     break;
                 case "2":
