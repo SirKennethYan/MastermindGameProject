@@ -1,6 +1,8 @@
 package main.java.ui;
 
 import java.util.Scanner;
+
+import main.java.app.GameController;
 import main.java.app.MastermindGame;
 
 public class MenuHandler {
@@ -8,6 +10,7 @@ public class MenuHandler {
 
     public static void printMenu(MastermindGame game) {
         boolean gameEnded = false;
+        GameController gameController = new GameController(game);
 
         while (!gameEnded) {
             GameView.printMainMenu();
@@ -18,7 +21,7 @@ public class MenuHandler {
             switch (menuChoice) {
                 case "1":
                     game.resetGame();
-                    game.playGame();
+                    gameController.playGame();
                     break;
                 case "2":
                     GameView.printInstructions(scanner);
