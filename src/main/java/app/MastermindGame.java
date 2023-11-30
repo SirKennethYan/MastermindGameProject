@@ -6,7 +6,6 @@ import main.java.ui.DifficultyLevel;
 import main.java.ui.MenuHandler;
 
 public class MastermindGame {
-    // static final Scanner scanner = new Scanner(System.in);
     // Default case (MEDIUM) no need to change the values
     public static int NUM_ATTEMPTS = 10;
     public static final int NUM_DIGITS = 4;
@@ -61,7 +60,7 @@ public class MastermindGame {
                 }
 
                 System.out.println("\nNew Game!\n");
-                game.resetGame(scanner);
+                game.resetGame();
 
             } while (true);
         }
@@ -71,16 +70,16 @@ public class MastermindGame {
         codeGenerator = new CodeGenerator();
         secretCode = codeGenerator.generateSecretCode();
         playerGuess = new int[NUM_DIGITS];
-        attemptsLeft = NUM_ATTEMPTS;
+        // attemptsLeft = NUM_ATTEMPTS;
         difficultyLevel = DifficultyLevel.MEDIUM;
-        resetGame(null);
+        resetGame();
     }
 
     public void setDifficulty(DifficultyLevel difficulty) {
         this.difficultyLevel = difficulty;
     }
 
-    public void resetGame(Scanner scanner) {
+    public void resetGame() {
         switch (difficultyLevel) {
             case EASY:
                 NUM_ATTEMPTS = 12;
@@ -110,11 +109,11 @@ public class MastermindGame {
         playerGuess = new int[NUM_DIGITS];
     }
 
-    public boolean containsNumber(int number, int[] array, Scanner scanner) {
-        return isNumberInArray(number, array, scanner);
+    public boolean containsNumber(int number, int[] array) {
+        return isNumberInArray(number, array);
     }
 
-    public boolean isNumberInArray(int number, int[] array, Scanner scanner) {
+    public boolean isNumberInArray(int number, int[] array) {
         for (int value : array) {
             if (value == number) {
                 return true;

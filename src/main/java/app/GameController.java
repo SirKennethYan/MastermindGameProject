@@ -16,7 +16,7 @@ public class GameController {
 
     public void playGame() {
         // Implement the logic to play the game using the MastermindGame object
-        mastermindGame.resetGame(null); // Ensure the game is reset before starting
+        mastermindGame.resetGame(); // Ensure the game is reset before starting
         boolean firstAttempt = true;
 
         while (mastermindGame.getAttemptsLeft() > 0) {

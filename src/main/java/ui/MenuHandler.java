@@ -19,7 +19,7 @@ public class MenuHandler {
 
             switch (menuChoice) {
                 case "1":
-                    game.resetGame(scanner);
+                    game.resetGame();
                     gameController.playGame();
                     break;
                 case "2":
