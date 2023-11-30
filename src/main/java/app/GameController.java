@@ -69,16 +69,21 @@ public class GameController {
         System.out.println("2. No");
 
         int choice = 0;
+        boolean validInput = false;
 
-        try {
-            choice = Integer.parseInt(scanner.nextLine());
-            if (choice < 1 || choice > 2) {
-                System.out.println("Invalid choice. Please enter 1 for 'yes' or 2 for 'no'.");
-                return askToPlayAgain();
+        while (!validInput) {
+            try {
+                String input = scanner.nextLine();
+                choice = Integer.parseInt(input);
+
+                if (choice < 1 || choice > 2) {
+                    System.out.println("Invalid choice. Please enter 1 for 'Yes' or 2 for 'No'.");
+                } else {
+                    validInput = true;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number (1 or 2).");
             }
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please enter a number.");
-            return askToPlayAgain();
         }
 
         if (choice == 1) {
@@ -90,4 +95,5 @@ public class GameController {
             return false;
         }
     }
+
 }
