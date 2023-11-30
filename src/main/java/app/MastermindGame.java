@@ -111,12 +111,7 @@ public class MastermindGame {
     }
 
     public boolean containsNumber(int number, int[] array, Scanner scanner) {
-        for (int value : array) {
-            if (value == number) {
-                return true;
-            }
-        }
-        return false;
+        return isNumberInArray(number, array, scanner);
     }
 
     public boolean isNumberInArray(int number, int[] array, Scanner scanner) {
