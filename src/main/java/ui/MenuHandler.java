@@ -80,9 +80,8 @@ public class MenuHandler {
         int[] secretCode = Player.getPlayerGuess(game.getNumDigits(), game.getMinValue(), game.getMaxValue(), true);
 
         game.setSecretCode(secretCode);
-        System.out.println("(Code Breaker), start guessing!");
-        game.resetGame();
         gameController.playGame();
+        game.setGameEnded(true);
     }
 
 }
