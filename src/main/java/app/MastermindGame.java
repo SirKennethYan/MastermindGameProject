@@ -14,6 +14,7 @@ public class MastermindGame {
 
     private DifficultyLevel difficultyLevel;
     private boolean gameEnded = false;
+    private boolean twoPlayerMode = false;
 
     private CodeGenerator codeGenerator;
     public int[] secretCode;
@@ -79,51 +80,54 @@ public class MastermindGame {
         this.difficultyLevel = difficulty;
     }
 
+    public void setSecretCode(int[] code) {
+        this.secretCode = code;
+    }
+
+    public void setTwoPlayerMode(boolean twoPlayerMode) {
+        this.twoPlayerMode = twoPlayerMode;
+    }
+
+    public void setGameEnded(boolean gameEnded) {
+        this.gameEnded = gameEnded;
+    }
+
     public void resetGame() {
-        switch (difficultyLevel) {
-            case EASY:
-                NUM_ATTEMPTS = 12;
-                MIN_VALUE = 1;
-                MAX_VALUE = 6;
-                attemptsLeft = NUM_ATTEMPTS;
-                break;
-            case MEDIUM:
-                // Default case, no need to change the values
-                attemptsLeft = NUM_ATTEMPTS;
-                break;
-            case HARD:
-                NUM_ATTEMPTS = 8;
-                MIN_VALUE = 1;
-                MAX_VALUE = 10;
-                attemptsLeft = NUM_ATTEMPTS;
-                break;
-            default:
-                // Set default values for the case when difficulty is not explicitly handled
-                NUM_ATTEMPTS = 10;
-                MIN_VALUE = 1;
-                MAX_VALUE = 8;
-                attemptsLeft = NUM_ATTEMPTS;
-                break;
-        }
-        secretCode = new CodeGenerator().generateSecretCode();
-        playerGuess = new int[NUM_DIGITS];
-    }
-
-    public boolean containsNumber(int number, int[] array) {
-        return isNumberInArray(number, array);
-    }
-
-    public boolean isNumberInArray(int number, int[] array) {
-        for (int value : array) {
-            if (value == number) {
-                return true;
+        if (!twoPlayerMode) {
+            switch (difficultyLevel) {
+                case EASY:
+                    NUM_ATTEMPTS = 12;
+                    MIN_VALUE = 1;
+                    MAX_VALUE = 6;
+                    break;
+                case MEDIUM:
+                    // Default case, no need to change the values
+                    NUM_ATTEMPTS = 10;
+                    MIN_VALUE = 1;
+                    MAX_VALUE = 8;
+                    break;
+                case HARD:
+                    NUM_ATTEMPTS = 8;
+                    MIN_VALUE = 1;
+                    MAX_VALUE = 10;
+                    break;
             }
+
+            codeGenerator = new CodeGenerator(); // Ensure you have a field for CodeGenerator
+            secretCode = codeGenerator.generateSecretCode();
+
+            attemptsLeft = NUM_ATTEMPTS;
         }
-        return false;
+
+        playerGuess = new int[NUM_DIGITS];
     }
 
     public boolean isGameEnded() {
         return gameEnded;
+    }
+
+    public boolean isTwoPlayerMode() {
+        return twoPlayerMode;
     }
 
 }

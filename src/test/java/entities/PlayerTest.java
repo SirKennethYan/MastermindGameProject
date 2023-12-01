@@ -25,7 +25,7 @@ public class PlayerTest {
         try (Scanner scanner = new Scanner(mockedInputStream)) {
             System.setIn(mockedInputStream);
 
-            int[] playerGuess = Player.getPlayerGuess(numDigits, minValue, maxValue);
+            int[] playerGuess = Player.getPlayerGuess(numDigits, minValue, maxValue, false);
 
             // Assert
             assertArrayEquals(new int[] { 1, 2, 3, 4 }, playerGuess);

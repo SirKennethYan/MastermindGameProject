@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import main.java.app.GameController;
 import main.java.app.MastermindGame;
+import main.java.entities.Player;
 
 public class MenuHandler {
     private static final Scanner scanner = new Scanner(System.in);
@@ -18,19 +19,24 @@ public class MenuHandler {
             System.out.println();
 
             switch (menuChoice) {
+                case "0":
+                    System.out.println("Exiting the game. Goodbye!");
+                    System.exit(0);
+                    break;
                 case "1":
                     game.resetGame();
                     gameController.playGame();
                     break;
                 case "2":
-                    GameView.printInstructions(scanner);
+                    game.setTwoPlayerMode(true);
+                    game.resetGame();
+                    playTwoPlayer(game, gameController);
                     break;
                 case "3":
                     selectDifficulty(game);
                     break;
                 case "4":
-                    System.out.println("Exiting the game. Goodbye!");
-                    System.exit(0);
+                    GameView.printInstructions(scanner);
                     break;
                 default:
                     handleInvalidChoice();
@@ -63,9 +69,20 @@ public class MenuHandler {
                 System.out.println("Invalid difficulty choice. Please enter a number (1, 2, or 3). ");
                 break;
         }
+        game.resetGame();
     }
 
     private static void handleInvalidChoice() {
         System.out.println("Invalid menu choice. Please enter a number between 1 and 4.");
     }
+
+    private static void playTwoPlayer(MastermindGame game, GameController gameController) {
+        int[] secretCode = Player.getPlayerGuess(game.getNumDigits(), game.getMinValue(), game.getMaxValue(), true);
+
+        game.setSecretCode(secretCode);
+        System.out.println("(Code Breaker), start guessing!");
+        game.resetGame();
+        gameController.playGame();
+    }
+
 }

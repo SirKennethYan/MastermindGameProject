@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import main.java.entities.Feedback;
 import main.java.entities.Player;
+import main.java.ui.MenuHandler;
 
 public class GameController {
     private MastermindGame mastermindGame;
@@ -27,7 +28,7 @@ public class GameController {
 
             System.out.println("Attempts left: " + mastermindGame.getAttemptsLeft());
             int[] playerGuess = Player.getPlayerGuess(mastermindGame.getNumDigits(), mastermindGame.getMinValue(),
-                    mastermindGame.getMaxValue());
+                    mastermindGame.getMaxValue(), firstAttempt);
 
             // Print statements for demo purposes
             System.out.println("Secret code: " + Arrays.toString(mastermindGame.getSecretCode()));
@@ -87,7 +88,15 @@ public class GameController {
         }
 
         if (choice == 1) {
-            playGame();
+            if (mastermindGame.isTwoPlayerMode()) {
+                // Set two-player mode and reset the game
+                mastermindGame.setTwoPlayerMode(true);
+                mastermindGame.resetGame();
+                MenuHandler.printMenu(mastermindGame, this);
+            } else {
+                // Single player, play the game
+                playGame();
+            }
             return true;
         } else {
             System.out.println("Exiting the game. Goodbye!");
