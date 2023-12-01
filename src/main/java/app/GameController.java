@@ -28,7 +28,7 @@ public class GameController {
 
             System.out.println("Attempts left: " + mastermindGame.getAttemptsLeft());
             int[] playerGuess = Player.getPlayerGuess(mastermindGame.getNumDigits(), mastermindGame.getMinValue(),
-                    mastermindGame.getMaxValue());
+                    mastermindGame.getMaxValue(), firstAttempt);
 
             // Print statements for demo purposes
             System.out.println("Secret code: " + Arrays.toString(mastermindGame.getSecretCode()));

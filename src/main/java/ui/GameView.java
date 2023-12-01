@@ -7,10 +7,10 @@ import main.java.instructions.GameInstructions;
 public class GameView {
     public static void printMainMenu() {
         System.out.println("0. Exit Game");
-        System.out.println("1. Start Game");
-        System.out.println("2. View Instructions");
-        System.out.println("3. Select Difficulty");
-        System.out.println("4. Two-Player");
+        System.out.println("1. 1-Player");
+        System.out.println("2. 2-Player");
+        System.out.println("3. Change Difficulty");
+        System.out.println("4. View Instructions");
     }
 
     public static void printInstructions(Scanner scanner) {

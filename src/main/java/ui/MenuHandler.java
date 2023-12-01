@@ -28,15 +28,15 @@ public class MenuHandler {
                     gameController.playGame();
                     break;
                 case "2":
-                    GameView.printInstructions(scanner);
+                    game.setTwoPlayerMode(true);
+                    game.resetGame();
+                    playTwoPlayer(game, gameController);
                     break;
                 case "3":
                     selectDifficulty(game);
                     break;
                 case "4":
-                    game.setTwoPlayerMode(true);
-                    game.resetGame();
-                    playTwoPlayer(game, gameController);
+                    GameView.printInstructions(scanner);
                     break;
                 default:
                     handleInvalidChoice();
@@ -69,7 +69,7 @@ public class MenuHandler {
                 System.out.println("Invalid difficulty choice. Please enter a number (1, 2, or 3). ");
                 break;
         }
-        game.resetGame(); // Pass the mode information
+        game.resetGame();
     }
 
     private static void handleInvalidChoice() {
@@ -77,19 +77,11 @@ public class MenuHandler {
     }
 
     private static void playTwoPlayer(MastermindGame game, GameController gameController) {
-        // Player 1 (Code Maker) enters the secret code
-        System.out.println("Player 1 (Code Maker), enter the super secret code:");
-        int[] secretCode = Player.getPlayerGuess(game.getNumDigits(), game.getMinValue(), game.getMaxValue());
+        int[] secretCode = Player.getPlayerGuess(game.getNumDigits(), game.getMinValue(), game.getMaxValue(), true);
 
-        // Set the super secret code
         game.setSecretCode(secretCode);
-
-        System.out.println("Player 2 (Code Breaker), start guessing!");
-
-        // Reset the game state for the Code Breaker
+        System.out.println("(Code Breaker), start guessing!");
         game.resetGame();
-
-        // Play the game
         gameController.playGame();
     }
 
