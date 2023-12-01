@@ -3,7 +3,6 @@ package main.java.ui;
 import java.util.Scanner;
 
 import main.java.app.GameController;
-import main.java.app.MastermindGame;
 import main.java.entities.GameState;
 import main.java.entities.Player;
 
