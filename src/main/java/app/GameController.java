@@ -3,46 +3,47 @@ package main.java.app;
 import java.util.Arrays;
 import java.util.Scanner;
 import main.java.entities.Feedback;
+import main.java.entities.GameState;
 import main.java.entities.Player;
 import main.java.ui.MenuHandler;
 
 public class GameController {
-    private MastermindGame mastermindGame;
+    private GameState gameState;
     private Scanner scanner;
 
-    public GameController(MastermindGame mastermindGame, Scanner scanner) {
-        this.mastermindGame = mastermindGame;
+    public GameController(GameState gameState, Scanner scanner) {
+        this.gameState = gameState;
         this.scanner = scanner;
     }
 
     public void playGame() {
         // Implement the logic to play the game using the MastermindGame object
-        mastermindGame.resetGame(); // Ensure the game is reset before starting
+        gameState.resetGame(); // Ensure the game is reset before starting
         boolean firstAttempt = true;
 
-        while (mastermindGame.getAttemptsLeft() > 0) {
+        while (gameState.getAttemptsLeft() > 0) {
             if (firstAttempt) {
                 System.out.println("Starting Game...Guess the Secret Code!");
                 firstAttempt = false;
             }
 
-            System.out.println("Attempts left: " + mastermindGame.getAttemptsLeft());
-            int[] playerGuess = Player.getPlayerGuess(mastermindGame.getNumDigits(), mastermindGame.getMinValue(),
-                    mastermindGame.getMaxValue(), firstAttempt);
+            System.out.println("Attempts left: " + gameState.getAttemptsLeft());
+            int[] playerGuess = Player.getPlayerGuess(gameState.getNumDigits(), gameState.getMinValue(),
+                    gameState.getMaxValue(), firstAttempt);
 
             // Print statements for demo purposes
-            System.out.println("Secret code: " + Arrays.toString(mastermindGame.getSecretCode()));
+            System.out.println("Secret code: " + Arrays.toString(gameState.getSecretCode()));
 
             if (playerGuess == null) {
-                System.out.println("Invalid input. Please enter " + mastermindGame.getNumDigits() + " numbers between "
-                        + mastermindGame.getMinValue() + " and " + mastermindGame.getMaxValue() + ".");
+                System.out.println("Invalid input. Please enter " + gameState.getNumDigits() + " numbers between "
+                        + gameState.getMinValue() + " and " + gameState.getMaxValue() + ".");
                 continue;
             }
 
-            int[] feedbackResult = Feedback.getFeedback(mastermindGame.getSecretCode(), playerGuess);
+            int[] feedbackResult = Feedback.getFeedback(gameState.getSecretCode(), playerGuess);
             Feedback.displayFeedback(feedbackResult);
 
-            if (feedbackResult[1] == mastermindGame.getNumDigits()) {
+            if (feedbackResult[1] == gameState.getNumDigits()) {
                 System.out.println("Congratulations! You guessed the correct code!");
 
                 if (askToPlayAgain()) {
@@ -53,12 +54,12 @@ public class GameController {
                 }
             }
 
-            mastermindGame.decrementAttemptsLeft();
+            gameState.decrementAttemptsLeft();
         }
 
-        if (mastermindGame.getAttemptsLeft() == 0 && !mastermindGame.isGameEnded()) {
+        if (gameState.getAttemptsLeft() == 0 && !gameState.isGameEnded()) {
             System.out.println("Sorry, you've run out of attempts. The correct code was: "
-                    + Arrays.toString(mastermindGame.getSecretCode()));
+                    + Arrays.toString(gameState.getSecretCode()));
             System.out.println("New Game? ");
             System.out.println();
         }
@@ -88,11 +89,11 @@ public class GameController {
         }
 
         if (choice == 1) {
-            if (mastermindGame.isTwoPlayerMode()) {
+            if (gameState.isTwoPlayerMode()) {
                 // Set two-player mode and reset the game
-                mastermindGame.setTwoPlayerMode(true);
-                mastermindGame.resetGame();
-                MenuHandler.printMenu(mastermindGame, this);
+                gameState.setTwoPlayerMode(true);
+                gameState.resetGame();
+                MenuHandler.printMenu(gameState, this);
             } else {
                 // Single player, play the game
                 playGame();
