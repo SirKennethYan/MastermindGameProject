@@ -6,10 +6,11 @@ import main.java.instructions.GameInstructions;
 
 public class GameView {
     public static void printMainMenu() {
+        System.out.println("0. Exit Game");
         System.out.println("1. Start Game");
         System.out.println("2. View Instructions");
         System.out.println("3. Select Difficulty");
-        System.out.println("4. Exit Game");
+        System.out.println("4. Two-Player");
     }
 
     public static void printInstructions(Scanner scanner) {
