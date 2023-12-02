@@ -74,6 +74,27 @@ With a solid foundation in place, I expanded the game's functionality by adding 
 
 </ul>
 
+### Run the Game
+
+To run the Mastermind Game, follow these steps:
+
+<ul>
+    <li>Clone the repository to your local machine.</li>
+    <li>git clone https://github.com/SirKennethYan/MastermindGameProject</li>
+    <li>Open the project in your preferred IDE (VSCode, Eclipse, IntelliJ).</li>
+    <li>Locate the MastermindGame class in the app package.</li>
+    <li>Run the main method within the MastermindGame class.</li>
+</ul>
+
+User Instructions:
+
+<ul>
+    <li>Upon starting the game, you will be presented with a menu offering various options.</li>
+    <li>Choose the desired mode, difficulty level, or access instructions.</li>
+    <li>Follow on-screen prompts to play the game, making guesses and receiving feedback.</li>
+    <li>Enjoy the challenge of deciphering the secret code!</li>
+</ul>
+
 <h3 align="left">Languages and Tools:</h3>
 <p>
   <a href="https://www.java.com" target="_blank" rel="noreferrer">
