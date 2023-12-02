@@ -45,7 +45,7 @@ public class Feedback {
         StringBuilder feedbackString = new StringBuilder("Secret Code: ");
 
         for (int i = 0; i < correctPosition; i++) {
-            feedbackString.append("■ "); // Solid square for correct position
+            feedbackString.append("O "); // Solid square for correct position
         }
         for (int i = 0; i < correctNumber; i++) {
             feedbackString.append("_ "); // Underscore for correct number (wrong position)
@@ -53,7 +53,7 @@ public class Feedback {
 
         int incorrectNumber = MastermindGame.NUM_DIGITS - correctNumber - correctPosition;
         for (int i = 0; i < incorrectNumber; i++) {
-            feedbackString.append("x "); // 'X' for incorrect numbers
+            feedbackString.append("X "); // 'X' for incorrect numbers
         }
 
         System.out.println(feedbackString.toString() + "\n\n----------------------------");
