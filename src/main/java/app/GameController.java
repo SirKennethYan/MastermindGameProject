@@ -17,8 +17,7 @@ public class GameController {
     }
 
     public void playGame() {
-        // Implement the logic to play the game using the MastermindGame object
-        gameState.resetGame(); // Ensure the game is reset before starting
+        gameState.resetGame();
         boolean firstAttempt = true;
 
         while (gameState.getAttemptsLeft() > 0) {
@@ -27,36 +26,54 @@ public class GameController {
                 firstAttempt = false;
             }
 
-            System.out.println("Attempts left: " + gameState.getAttemptsLeft());
-            int[] playerGuess = Player.getPlayerGuess(gameState.getNumDigits(), gameState.getMinValue(),
-                    gameState.getMaxValue(), firstAttempt);
+            displayGameInfo();
 
-            // Print statements for demo purposes
-            System.out.println("Secret code: " + Arrays.toString(gameState.getSecretCode()));
+            int[] playerGuess = getPlayerInput(firstAttempt);
 
             if (playerGuess == null) {
-                System.out.println("Invalid input. Please enter " + gameState.getNumDigits() + " numbers between "
-                        + gameState.getMinValue() + " and " + gameState.getMaxValue() + ".");
                 continue;
             }
 
             int[] feedbackResult = Feedback.getFeedback(gameState.getSecretCode(), playerGuess);
             Feedback.displayFeedback(feedbackResult);
 
-            if (feedbackResult[1] == gameState.getNumDigits()) {
-                System.out.println("Congratulations! You guessed the correct code!");
-
-                if (askToPlayAgain()) {
-                    firstAttempt = true;
-                    break;
-                } else {
-                    return;
-                }
+            if (checkGameEndCondition(feedbackResult)) {
+                break;
             }
 
             gameState.decrementAttemptsLeft();
         }
 
+        handleGameEnd();
+    }
+
+    private void displayGameInfo() {
+        System.out.println("Attempts left: " + gameState.getAttemptsLeft());
+        // Print statements for demo purposes
+        System.out.println("Secret code: " + Arrays.toString(gameState.getSecretCode()));
+    }
+
+    private int[] getPlayerInput(boolean firstAttempt) {
+        return Player.getPlayerGuess(gameState.getNumDigits(), gameState.getMinValue(),
+                gameState.getMaxValue(), firstAttempt);
+    }
+
+    private boolean checkGameEndCondition(int[] feedbackResult) {
+        if (feedbackResult[1] == gameState.getNumDigits()) {
+            System.out.println("Congratulations! You guessed the correct code!");
+
+            if (askToPlayAgain()) {
+                return true;
+            } else {
+                gameState.setGameEnded(true);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void handleGameEnd() {
         if (gameState.getAttemptsLeft() == 0 && !gameState.isGameEnded()) {
             System.out.println("Sorry, you've run out of attempts. The correct code was: "
                     + Arrays.toString(gameState.getSecretCode()));
@@ -70,6 +87,18 @@ public class GameController {
         System.out.println("1. Yes");
         System.out.println("2. No");
 
+        int choice = getValidChoice();
+
+        if (choice == 1) {
+            handlePlayAgain();
+            return true;
+        } else {
+            handleExitGame();
+            return false;
+        }
+    }
+
+    private int getValidChoice() {
         int choice = 0;
         boolean validInput = false;
 
@@ -88,22 +117,22 @@ public class GameController {
             }
         }
 
-        if (choice == 1) {
-            if (gameState.isTwoPlayerMode()) {
-                // Set two-player mode and reset the game
-                gameState.setTwoPlayerMode(true);
-                gameState.resetGame();
-                MenuHandler.printMenu(gameState, this);
-            } else {
-                // Single player, play the game
-                playGame();
-            }
-            return true;
+        return choice;
+    }
+
+    private void handlePlayAgain() {
+        if (gameState.isTwoPlayerMode()) {
+            gameState.setTwoPlayerMode(true);
+            gameState.resetGame();
+            MenuHandler.printMenu(gameState, this);
         } else {
-            System.out.println("Exiting the game. Goodbye!");
-            System.exit(0);
-            return false;
+            playGame();
         }
+    }
+
+    private void handleExitGame() {
+        System.out.println("Exiting the game. Goodbye!");
+        System.exit(0);
     }
 
 }
