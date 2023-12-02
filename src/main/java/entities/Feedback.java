@@ -53,7 +53,7 @@ public class Feedback {
 
         int incorrectNumber = MastermindGame.NUM_DIGITS - correctNumber - correctPosition;
         for (int i = 0; i < incorrectNumber; i++) {
-            feedbackString.append("X "); // 'X' for incorrect numbers
+            feedbackString.append("x "); // 'X' for incorrect numbers
         }
 
         System.out.println(feedbackString.toString() + "\n\n----------------------------");
