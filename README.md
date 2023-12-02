@@ -80,7 +80,7 @@ To run the Mastermind Game, follow these steps:
 
 <ul>
     <li>Clone the repository to your local machine.</li>
-    <li>git clone https://github.com/SirKennethYan/MastermindGameProject</li>
+    <li>'git clone https://github.com/SirKennethYan/MastermindGameProject'</li>
     <li>Open the project in your preferred IDE (VSCode, Eclipse, IntelliJ).</li>
     <li>Locate the MastermindGame class in the app package.</li>
     <li>Run the main method within the MastermindGame class.</li>
