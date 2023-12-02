@@ -20,23 +20,19 @@ public class MenuHandler {
 
             switch (menuChoice) {
                 case "0":
-                    System.out.println("Exiting the game. Goodbye!");
-                    System.exit(0);
+                    exitGame();
                     break;
                 case "1":
-                    gameState.resetGame();
-                    gameController.playGame();
+                    playSinglePlayer(gameState, gameController);
                     break;
                 case "2":
-                    gameState.setTwoPlayerMode(true);
-                    gameState.resetGame();
                     playTwoPlayer(gameState, gameController);
                     break;
                 case "3":
                     selectDifficulty(gameState);
                     break;
                 case "4":
-                    GameView.printInstructions(scanner);
+                    showInstructions();
                     break;
                 default:
                     handleInvalidChoice();
@@ -47,33 +43,14 @@ public class MenuHandler {
         }
     }
 
-    private static void selectDifficulty(GameState gameState) {
-        GameView.printDifficultyMenu();
-
-        String difficultyChoice = scanner.nextLine();
-
-        switch (difficultyChoice) {
-            case "1":
-                gameState.setDifficulty(DifficultyLevel.EASY);
-                System.out.println("Difficulty set to Easy");
-                break;
-            case "2":
-                gameState.setDifficulty(DifficultyLevel.MEDIUM);
-                System.out.println("Difficulty set to Medium");
-                break;
-            case "3":
-                gameState.setDifficulty(DifficultyLevel.HARD);
-                System.out.println("Difficulty set to Hard");
-                break;
-            default:
-                System.out.println("Invalid difficulty choice. Please enter a number (1, 2, or 3). ");
-                break;
-        }
-        gameState.resetGame();
+    private static void exitGame() {
+        System.out.println("Exiting the game. Goodbye!");
+        System.exit(0);
     }
 
-    private static void handleInvalidChoice() {
-        System.out.println("Invalid menu choice. Please enter a number between 1 and 4.");
+    private static void playSinglePlayer(GameState gameState, GameController gameController) {
+        gameState.resetGame();
+        gameController.playGame();
     }
 
     private static void playTwoPlayer(GameState gameState, GameController gameController) {
@@ -85,4 +62,38 @@ public class MenuHandler {
         gameState.setGameEnded(true);
     }
 
+    private static void selectDifficulty(GameState gameState) {
+        GameView.printDifficultyMenu();
+
+        String difficultyChoice = scanner.nextLine();
+
+        switch (difficultyChoice) {
+            case "1":
+                setDifficulty(gameState, DifficultyLevel.EASY);
+                break;
+            case "2":
+                setDifficulty(gameState, DifficultyLevel.MEDIUM);
+                break;
+            case "3":
+                setDifficulty(gameState, DifficultyLevel.HARD);
+                break;
+            default:
+                System.out.println("Invalid difficulty choice. Please enter a number (1, 2, or 3). ");
+                break;
+        }
+        gameState.resetGame();
+    }
+
+    private static void setDifficulty(GameState gameState, DifficultyLevel difficulty) {
+        gameState.setDifficulty(difficulty);
+        System.out.println("Difficulty set to " + difficulty);
+    }
+
+    private static void showInstructions() {
+        GameView.printInstructions(scanner);
+    }
+
+    private static void handleInvalidChoice() {
+        System.out.println("Invalid menu choice. Please enter a number between 0 and 4.");
+    }
 }
