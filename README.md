@@ -47,16 +47,32 @@ Game Termination:
 ### Development Process
 
 Understanding the Game:
+
+<ul>
 Initially, I started by creating user stories to gain a clear understanding of the game's rules and logic. As I was unfamiliar with Mastermind, this step was crucial for defining the project scope and requirements.
+</ul>
 
 Core Logic Implementation:
+
+<ul>
 The next step involved implementing the core logic to achieve a basic playthrough. At this stage, the code lacked input validation checks and error handling. My focus was on establishing a functional foundation for the game.
+</ul>
 
 Code Refactoring:
+
+<ul>
+
 To enhance code readability and maintainability, I refactored the initial implementation by abstracting different components into separate entities. This restructuring included creating distinct classes for game states, code generation, feedback, and more.
 
+</ul>
+
 Feature Enhancements:
+
+<ul>
+
 With a solid foundation in place, I expanded the game's functionality by adding features such as difficulty levels and a 2-player mode. These enhancements aimed to provide players with a more dynamic and engaging experience.
+
+</ul>
 
 <h3 align="left">Languages and Tools:</h3>
 <p>
