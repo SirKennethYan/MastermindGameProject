@@ -8,7 +8,7 @@ public class Feedback {
         int correctNumber = 0;
         int correctPosition = 0;
 
-        // Arrays to keep track of which digits in secretCode and playerGuess have
+        // keep track of which digits in secretCode/playerGuess have
         // already been matched
         boolean[] secretCodeMatched = new boolean[MastermindGame.NUM_DIGITS];
         boolean[] playerGuessMatched = new boolean[MastermindGame.NUM_DIGITS];

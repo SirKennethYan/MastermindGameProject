@@ -1,6 +1,7 @@
 package main.java.entities;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -12,23 +13,42 @@ public class CodeGenerator {
     public int[] generateSecretCode() {
         int[] code = new int[MastermindGame.NUM_DIGITS];
         try {
-            URL url = new URL(API_URL + "?num=" + MastermindGame.NUM_DIGITS + "&min=" + MastermindGame.MIN_VALUE
-                    + "&max=" + MastermindGame.MAX_VALUE +
-                    "&col=1&base=10&format=plain&rnd=new");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
+            URL url = buildApiUrl();
+            HttpURLConnection connection = openConnection(url);
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             for (int i = 0; i < MastermindGame.NUM_DIGITS; i++) {
-                code[i] = Integer.parseInt(reader.readLine());
+                code[i] = parseIntFromReader(reader);
             }
 
-            reader.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            closeReader(reader);
+        } catch (IOException e) {
+            handleException(e);
         }
 
         return code;
     }
 
+    private URL buildApiUrl() throws IOException {
+        return new URL(API_URL + "?num=" + MastermindGame.NUM_DIGITS + "&min=" + MastermindGame.MIN_VALUE
+                + "&max=" + MastermindGame.MAX_VALUE + "&col=1&base=10&format=plain&rnd=new");
+    }
+
+    private HttpURLConnection openConnection(URL url) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        return connection;
+    }
+
+    private int parseIntFromReader(BufferedReader reader) throws IOException {
+        return Integer.parseInt(reader.readLine());
+    }
+
+    private void closeReader(BufferedReader reader) throws IOException {
+        reader.close();
+    }
+
+    private void handleException(Exception e) {
+        e.printStackTrace();
+    }
 }
