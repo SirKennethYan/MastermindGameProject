@@ -1,7 +1,8 @@
-package test.java.instructions;
+package test.java.resources;
 
-import main.java.instructions.GameInstructions;
 import org.junit.jupiter.api.Test;
+
+import main.java.resources.GameInstructions;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

@@ -2,7 +2,7 @@ package main.java.ui;
 
 import java.util.Scanner;
 
-import main.java.instructions.GameInstructions;
+import main.java.resources.GameInstructions;
 
 public class GameView {
     public static void printMainMenu() {
