@@ -27,6 +27,8 @@ public class MenuHandler {
                     playSinglePlayer(gameState, gameController);
                     break;
                 case "2":
+                    gameState.setTwoPlayerMode(true);
+                    gameState.resetGame();
                     playTwoPlayer(gameState, gameController);
                     break;
                 case "3":

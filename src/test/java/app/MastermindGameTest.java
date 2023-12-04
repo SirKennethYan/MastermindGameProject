@@ -7,10 +7,6 @@ public class MastermindGameTest {
     public static void main(String[] args) {
         MastermindGameTest test = new MastermindGameTest();
         test.setUp();
-        // TODO test.testGameOutcome();
-        // TODO test.resetGame();
-        // TODO test.setDifficulty();
-        // TODO test.playGame();
     }
 
     @BeforeEach

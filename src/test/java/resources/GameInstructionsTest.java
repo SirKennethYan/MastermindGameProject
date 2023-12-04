@@ -13,14 +13,17 @@ public class GameInstructionsTest {
 
     @Test
     public void testPrintInstructions() {
-        // Arrange
+        // Creates a new ByteArrayOutputStream to capture the output intended for the
+        // console.
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
 
-        // Act
+        // Calls the printInstructions method of the GameInstructions class, which
+        // prints instructions to the console.
         GameInstructions.printInstructions();
 
-        // Assert
+        // Converts the captured output from the ByteArrayOutputStream to a string and
+        // trims any leading or trailing whitespaces.
         String consoleOutput = outputStream.toString().trim();
 
         // Print debug
@@ -29,7 +32,8 @@ public class GameInstructionsTest {
         // Check if the console output is not empty
         assertTrue(!consoleOutput.isEmpty());
 
-        // Reset System.out to the original PrintStream
+        // Resets the standard output to the original PrintStream to prevent
+        // interference with other tests or subsequent code.
         System.setOut(System.out);
     }
 }

@@ -12,22 +12,24 @@ public class PlayerTest {
 
     @Test
     public void testGetPlayerGuessValidInput() {
-        // Arrange
+        // Arrange the necessary parameters.
         int numDigits = 4;
         int minValue = 1;
         int maxValue = 8;
 
-        // Set up input stream with mocked user input
+        // Set up input stream with mocked user input.
         String simulatedInput = "1 2 3 4";
         InputStream mockedInputStream = new ByteArrayInputStream(simulatedInput.getBytes());
 
-        // Act
+        // The getPlayerGuess method is called within a try block. The
+        // System.setIn is used to set the standard input stream to
+        // the mocked input stream. The result of the method call is stored in the
+        // playerGuess array.
         try (Scanner scanner = new Scanner(mockedInputStream)) {
             System.setIn(mockedInputStream);
 
             int[] playerGuess = Player.getPlayerGuess(numDigits, minValue, maxValue, false);
 
-            // Assert
             assertArrayEquals(new int[] { 1, 2, 3, 4 }, playerGuess);
         } catch (Exception e) {
             e.printStackTrace();
