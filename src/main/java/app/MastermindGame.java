@@ -19,6 +19,8 @@ public class MastermindGame {
     public int[] secretCode;
     public int[] playerGuess;
 
+    // The main method initializes the game, creates a GameController, and enters a
+    // loop to play the game until the user decides to exit.
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             MastermindGame game = new MastermindGame();
@@ -41,13 +43,16 @@ public class MastermindGame {
         }
     }
 
+    // The constructor MastermindGame() initializes essential components like
+    // codeGenerator, secretCode, playerGuess, gameState, and sets the difficulty
+    // level to medium.
     public MastermindGame() {
         codeGenerator = new CodeGenerator();
         secretCode = codeGenerator.generateSecretCode();
         playerGuess = new int[NUM_DIGITS];
         gameState = new GameState();
         difficultyLevel = DifficultyLevel.MEDIUM;
-        gameState.setDifficulty(difficultyLevel); // Set difficulty in GameState
+        gameState.setDifficulty(difficultyLevel);
         gameState.resetGame();
     }
 

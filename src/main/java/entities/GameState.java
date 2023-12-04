@@ -3,6 +3,7 @@ package main.java.entities;
 import java.util.Arrays;
 import main.java.ui.DifficultyLevel;
 
+// Encapsulates the state of a Mastermind game.
 public class GameState {
     public static int NUM_ATTEMPTS = 10;
     public static final int NUM_DIGITS = 4;
@@ -17,6 +18,8 @@ public class GameState {
     private boolean twoPlayerMode;
     private CodeGenerator codeGenerator;
 
+    // Resets the game state, adjusting parameters based on the difficulty level,
+    // and generates a new secret code using the CodeGenerator.
     public void resetGame() {
         if (!twoPlayerMode) {
             switch (difficultyLevel) {
@@ -46,6 +49,7 @@ public class GameState {
         playerGuess = new int[NUM_DIGITS];
     }
 
+    // Getters and setters.
     public int getNumDigits() {
         return NUM_DIGITS;
     }
@@ -106,6 +110,8 @@ public class GameState {
         attemptsLeft--;
     }
 
+    // Provides a string representation of the GameState object for debugging or
+    // logging purposes.
     @Override
     public String toString() {
         return "GameState [secretCode=" + Arrays.toString(secretCode) + ", playerGuess=" + Arrays.toString(playerGuess)
