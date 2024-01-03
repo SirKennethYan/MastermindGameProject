@@ -15,24 +15,23 @@ public class Feedback {
         boolean[] secretCodeMatched = new boolean[MastermindGame.NUM_DIGITS];
         boolean[] playerGuessMatched = new boolean[MastermindGame.NUM_DIGITS];
 
-        // Check for correct positions.
+        // Iterate through each digit in the player's guess and compare it with each
+        // digit in the secret code.
         for (int i = 0; i < MastermindGame.NUM_DIGITS; i++) {
-            if (playerGuess[i] == secretCode[i]) {
-                correctPosition++;
-                secretCodeMatched[i] = true;
-                playerGuessMatched[i] = true;
-            }
-        }
-
-        // Then, check for correct numbers in incorrect positions.
-        for (int i = 0; i < MastermindGame.NUM_DIGITS; i++) {
-            if (!secretCodeMatched[i]) {
-                for (int j = 0; j < MastermindGame.NUM_DIGITS; j++) {
-                    if (!playerGuessMatched[j] && playerGuess[j] == secretCode[i]) {
-                        correctNumber++;
-                        playerGuessMatched[j] = true;
-                        break;
-                    }
+            for (int j = 0; j < MastermindGame.NUM_DIGITS; j++) {
+                // Check if the current digit in the player's guess matches the digit in the
+                // secret code and if it is in the correct position (i.e., both indices are
+                // equal).
+                if (!playerGuessMatched[j] && playerGuess[j] == secretCode[i] && j == i) {
+                    // Increment the count of correct positions, mark the corresponding digits as
+                    // matched.
+                    correctPosition++;
+                    secretCodeMatched[i] = true;
+                    playerGuessMatched[i] = true;
+                } else if (playerGuess[j] == secretCode[i]) {
+                    // If the digits match but are not in the correct position, increment the count
+                    // of correct numbers.
+                    correctNumber++;
                 }
             }
         }

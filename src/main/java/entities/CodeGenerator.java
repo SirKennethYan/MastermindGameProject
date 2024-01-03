@@ -36,8 +36,8 @@ public class CodeGenerator {
     // Constructs the API URL based on the Mastermind game parameters like the
     // number of digits, minimum, and maximum values.
     private URL buildApiUrl() throws IOException {
-        return new URL(API_URL + "?num=" + MastermindGame.NUM_DIGITS + "&min=" + MastermindGame.MIN_VALUE
-                + "&max=" + MastermindGame.MAX_VALUE + "&col=1&base=10&format=plain&rnd=new");
+        return new URL(API_URL + "?num=" + GameState.NUM_DIGITS + "&min=" + GameState.MIN_VALUE
+                + "&max=" + GameState.MAX_VALUE + "&col=1&base=10&format=plain&rnd=new");
     }
 
     // Opens a connection to the API using HttpURLConnection.
